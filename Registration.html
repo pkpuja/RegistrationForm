@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Bootstrap Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<!-- Basic CSS file -->
+	<link rel="stylesheet" href="css/registration.css">
+	<!--  js file -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript" src="js/registration.js"></script> 
+
+</head>
+<body onload="generateCaptcha();">
+	<div class="container-fluid">
+		<div class="row firstForm ">
+			<form id="form1">
+				<div class="form-group col-sm-3 registered">
+					<label id="alredyRegLbl">Already Registered?</label>
+				</div>
+				<div class="form-group col-sm-4" id="emailUpperLbl">
+					<label for="email1" class="upperLabel">Email ID</label>
+					<input type="email"  pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="****@****.com" class="form-control upperInput commonBorder" id="email1">
+				</div>
+				<div class="form-group col-sm-3">
+					<label for="pwd1" class="upperLabel">Password</label>
+					<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control upperInput commonBorder" id="pwd1">
+				</div>
+				<div class="form-group col-sm-2 goBtn">        
+			        <button type="submit" class="btn btn-default" id="go">Go</button>
+		        </div>
+			</form>
+		</div> 
+		<!-- <hr> -->
+		<!--  hr line end  -->
+		<div class="horizontalLine">
+		  <div class="horizontalTextCon"><span class="horizontalText">OR</span></div>
+		</div>
+		<!-- hr line end  -->
+		<p></p>
+		<div class="row" style="background-color:white">
+			<form id="signup" name="signup" method="post" action="">
+				<div class="row top-buffer">
+					<div class="form-group col-sm-12">
+						<label for="usr">Register As *</label>
+						<div class="selectDropdownMember commonBorder" id="selectMomebrId">
+						   <select class="classic" required>
+								<option value="" hidden="false">Select member type</option>
+								<option value="Nuser">Normal user</option>
+								<option value="admin">Admin user</option>
+							</select>
+						</div>  
+					</div>
+				</div>
+				<div class="row top-buffer">
+					<p></p>
+					<div class="form-group col-sm-12">
+						<label for="email">Email ID *</label>
+						<input type="email" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" class="form-control inputStyle commonBorder" placeholder="****@****.com" id="email">
+					</div>
+				</div>	
+				<div class="row top-buffer">
+					<div class="form-group col-sm-4">
+						<label for="pwd">Password *</label>
+						<input type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control inputStyle2 commonBorder" id="pwd">
+					</div>
+					<div class="form-group col-sm-8 ">
+						<label for="cPwd">Confirm Password</label>
+						<input type="password" required onchange="validatePassword();" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control inputStyle3 commonBorder" id="cPwd">
+						<span id="pwderror"></span>
+					</div>
+				</div>
+				<div class="row top-buffer">
+					<div class="form-group col-sm-4 ">
+						<label for="fName">Full Name *</label>
+						<input type="text" required pattern="(?=.*[a-z]).{2,20}"  maxlength="20" title="Must be 2 to 20 characters" class="form-control inputStyle2 commonBorder" placeholder="First Name" id="fName">
+					</div>
+					<div class="form-group col-sm-4 ">
+						<label for="mName" style="color:white;">""</label>
+						<input type="text"  maxlength="20" class="form-control inputStyle2 commonBorder" placeholder="Middle Name" id="mName">
+					</div>
+					<div class="form-group col-sm-4 ">
+						<label for="lName" style="color:white;">""</label>
+						<input type="text"  maxlength="20" class="form-control inputStyle2 commonBorder" placeholder="Last Name" id="lName">
+					</div>
+				</div>
+				<div class="row top-buffer">
+					<div class="form-group col-sm-4 ">
+						<label for="dispName">Display Name *</label>
+						<input type="text"  pattern="(?=.*[a-z]).{2,10}" maxlength="10" required class="form-control inputStyle2 commonBorder" id="dispName">
+					</div>
+					<div class="form-group col-sm-4 ">
+						<label for="mob">Mobile Number *</label>
+						<input type="tel" pattern="^\d{3}-\d{3}-\d{4}$" title='Phone Number (Format: 999-999-9999)' required class="form-control inputStyle2 commonBorder" id="mob">
+					</div>
+					<div class="form-group col-sm-4 ">
+						<label for="gender">Gender *</label>
+						 <div class="selectDropdownGender commonBorder">
+						   <select class="classic" required>
+								<option hidden="hidden"></option>
+								<option value="m">Male</option>
+								<option value="f">Female</option>
+							</select>
+						</div>
+					</div>
+				</div>	
+				<div class="row top-buffer" id="captcontainer">
+					<div class="form-group col-sm-4 ">
+						<label for="captchaCon">Captcha</label>
+						<div class="form-control captchaDiv" background= "image/cap.jpeg">
+						<img src="image/cap.jpeg" alt="CAPTCHA Image" class="img-responsive captchaImg"> 
+						<input type="text" id="mainCaptcha" readonly="readonly" /> </img>
+						<input type="button" id="refresh" value="Refresh" onclick="generateCaptcha();" />
+						</div>
+					</div>
+					<div class="form-group col-sm-8 ">
+						<label for="captcha">Enter code here *</label>
+						<input type="text" required class="form-control inputStyle3 commonBorder" id="txtInput"> 
+						<input id="Button1" type="button" value="Check" style="margin-top:1%;" onclick="CheckValidCaptcha();"/>
+						<span id="error" style="color:red"></span>
+						<span id="success" style="color:green"></span>
+					</div>
+				</div>
+				<div class="row top-buffer">			
+					<div class="form-group col-sm-12">        
+						<label><input type="checkbox" required name="remember" id="chkBox"> I have read, understood, and accepted the rules of membership.</label>
+					</div>
+				</div>	
+				<div class="row top-buffer">
+					<div class="form-group registerBtn" id="resultscontainer">        
+						<button type="submit" class="btn register" id="submit" onchange="checkForm("signup");">Register</button>
+						<span id="submitresults"></span>
+					</div>
+					<div class="form-group cancelBtn">        
+						<button type="submit" class="btn" id="cancel">Cancel</button>
+					</div>
+				</div>	
+		  </form>
+		</div>
+	</div>
+</body>
+</html>
